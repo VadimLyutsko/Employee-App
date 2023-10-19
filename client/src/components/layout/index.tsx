@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutPropsType> = ({children}) => {
     return (
         <div className={styles.main}>
             <Header/>
-            <AntLayout style = {{height:"100%"}}>
+            <AntLayout style = {{height:"100%", backgroundColor:'#141414'}}>
                 {children}
             </AntLayout>
         </div>
