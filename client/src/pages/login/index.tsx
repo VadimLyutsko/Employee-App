@@ -11,7 +11,7 @@ export const Login = () => {
     return (
         <Layout>
             <Row align={'middle'} justify={'center'}>
-                <Card title={'Djqlbnt'} style={{width: '30rem'}}>
+                <Card title={'Войдите'} style={{width: '30rem'}}>
                     <Form onFinish={() => null}>
                         <CustomInput name={'email'} placeholder={'Email'} type={'email'}/>
                         <CustomPasswordInput name={'password'} placeholder={'Пароль'}/>
