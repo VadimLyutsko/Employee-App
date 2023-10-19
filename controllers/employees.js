@@ -6,13 +6,13 @@ const { prisma } = require("../prisma/prisma-client");
  * @access Private
  */
 const all = async (req, res) => {
-    try {
-        const employees = await prisma.employee.findMany();
+  try {
+    const employees = await prisma.employee.findMany();
 
-        res.status(200).json(employees);
-    } catch {
-        res.status(500).json({ message: "Не удалось получить сотрудников" });
-    }
+    res.status(200).json(employees);
+  } catch {
+    res.status(500).json({ message: "Не удалось получить сотрудников" });
+  }
 };
 
 /**
@@ -21,25 +21,25 @@ const all = async (req, res) => {
  * @access Private
  */
 const add = async (req, res) => {
-    try {
-        const data = req.body;
+  try {
+    const data = req.body;
 
-        if (!data.firstName || !data.lastName || !data.address || !data.age) {
-            return res.status(400).json({ message: "Все поля обязательные" });
-        }
-
-        const employee = await prisma.employee.create({
-            data: {
-                ...data,
-                userId: req.user.id,
-            },
-        });
-
-        return res.status(201).json(employee);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ message: "Что-то пошло не так" });
+    if (!data.firstName || !data.lastName || !data.address || !data.age) {
+      return res.status(400).json({ message: "Все поля обязательные" });
     }
+
+    const employee = await prisma.employee.create({
+      data: {
+        ...data,
+        userId: req.user.id,
+      },
+    });
+
+    return res.status(201).json(employee);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Что-то пошло не так" });
+  }
 };
 
 /**
@@ -48,19 +48,19 @@ const add = async (req, res) => {
  * @access Private
  */
 const remove = async (req, res) => {
-    const { id } = req.body;
+  const { id } = req.body;
 
-    try {
-        await prisma.employee.delete({
-            where: {
-                id,
-            },
-        });
+  try {
+    await prisma.employee.delete({
+      where: {
+        id,
+      },
+    });
 
-        res.status(204).json("OK");
-    } catch {
-        res.status(500).json({ message: "Не удалось удалить сотрудника" });
-    }
+    res.status(204).json("OK");
+  } catch {
+    res.status(500).json({ message: "Не удалось удалить сотрудника" });
+  }
 };
 
 /**
@@ -69,21 +69,21 @@ const remove = async (req, res) => {
  * @access Private
  */
 const edit = async (req, res) => {
-    const data = req.body;
-    const id = data.id;
+  const data = req.body;
+  const id = data.id;
 
-    try {
-        await prisma.employee.update({
-            where: {
-                id,
-            },
-            data,
-        });
+  try {
+    await prisma.employee.update({
+      where: {
+        id,
+      },
+      data,
+    });
 
-        res.status(204).json("OK");
-    } catch(err) {
-        res.status(500).json({ message: "Не удалось редактировать сотрудника" });
-    }
+    res.status(204).json("OK");
+  } catch(err) {
+    res.status(500).json({ message: "Не удалось редактировать сотрудника" });
+  }
 };
 
 /**
@@ -92,25 +92,25 @@ const edit = async (req, res) => {
  * @access Private
  */
 const employee = async (req, res) => {
-    const { id } = req.params; // http://localhost:8000/api/employees/9fe371c1-361f-494a-9def-465959ecc098
+  const { id } = req.params; // http://localhost:8000/api/employees/9fe371c1-361f-494a-9def-465959ecc098
 
-    try {
-        const employee = await prisma.employee.findUnique({
-            where: {
-                id,
-            },
-        });
+  try {
+    const employee = await prisma.employee.findUnique({
+      where: {
+        id,
+      },
+    });
 
-        res.status(200).json(employee);
-    } catch {
-        res.status(500).json({ message: "Не удалось получить сотрудника" });
-    }
+    res.status(200).json(employee);
+  } catch {
+    res.status(500).json({ message: "Не удалось получить сотрудника" });
+  }
 };
 
 module.exports = {
-    all,
-    add,
-    remove,
-    edit,
-    employee,
+  all,
+  add,
+  remove,
+  edit,
+  employee,
 };
